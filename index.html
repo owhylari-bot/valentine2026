@@ -49,7 +49,8 @@
 </head>
 <body>
 <button class="music" id="musicButton" type="button">🎵 Tocar música</button>
-<audio id="song" loop preload="none" src="https://res.cloudinary.com/dncywqfpb/video/upload/v1738399057/music_qrhjvy.mp3"></audio>
+<audio id="brunoSong" loop preload="none" src="audio/bruno.mp3.mp3"></audio>
+<audio id="demiSong" loop preload="none" src="audio/demi.mp3.mp3"></audio>
 <main><div class="eyebrow" id="chapter">Uma surpresa só sua</div><h1>Para minha Lari ♡</h1><div class="progress"><div id="bar" style="width:0%"></div></div><div id="screen" aria-live="polite"></div><p class="small">Feito com todo o amor do mundo 💜</p></main>
 <script>
 // 💌 PERSONALIZAÇÃO: altere os textos abaixo quando quiser.
@@ -64,7 +65,7 @@ const memories=[['🎮','Nossas jogatinas','Tudo começou com conversas e partid
 const $=s=>document.querySelector(s);let stage=0,memoryOpened=new Set(),meterValue=100,teaseCount=0,meterCelebrated=false;
 const stages=['Primeira perguntinha','Preciso confirmar uma coisa','Medidor oficial de amor','Três pedacinhos da nossa história','Uma carta do meu coração','Última brincadeira','Um segredo muito importante','O grande momento','Nosso capítulo'];
 function btn(label,action,cls='primary'){return `<button type="button" class="${cls}" data-action="${action}">${label}</button>`}
-function setStage(n){stage=n;$('#chapter').textContent=stages[n];$('#bar').style.width=(n/8*100)+'%';render();window.scrollTo({top:0,behavior:'smooth'})}
+function setStage(n){if(proposalTimer){clearTimeout(proposalTimer);proposalTimer=null;}const previousStage=stage;stage=n;$('#chapter').textContent=stages[n];$('#bar').style.width=(n/8*100)+'%';render();updateSoundtrack(previousStage,n);window.scrollTo({top:0,behavior:'smooth'})}
 function render(){const el=$('#screen');let html='';switch(stage){
 case 0:html=`<section class="step"><div class="sticker">🧸💗</div><h2>${messages.firstQuestion}</h2><p class="sub">Responde com sinceridade, hein! 🤨</p><div class="buttons">${btn('Simmm! ❤️','next')}${btn('Nem, saí fora 🙄','tease','secondary')}</div>${btn('🤫 Uma resposta secreta (toque aqui)','secret','secret')}<p class="hint">O segredinho está visível… mas só se revela quando você toca 🤫</p><p class="response" id="tease"></p><p class="response" id="secretText" aria-live="polite"></p></section>`;break;
 case 1:html=`<section class="step"><div class="sticker">🤨💕</div><h2>${messages.secondQuestion}</h2><p class="sub">Pensa direitinho antes de responder KKKKK.</p><div class="buttons">${btn('EU TE AMO, BOBA! ❤️','next')}${btn('Tô pensando... 👀','tease','secondary')}</div>${btn('💌 Tem um segredo pra você (toque aqui)','secret','secret')}<p class="response" id="tease"></p><p class="response" id="secretText" aria-live="polite"></p></section>`;break;
@@ -111,8 +112,83 @@ $('#screen').addEventListener('pointermove',e=>{
 });
 function finishTyping(){if(typingTimer)clearInterval(typingTimer);typingTimer=null;typingIndex=messages.letter.length;const el=$('#typedLetter');if(el)el.textContent=messages.letter;$('#letterSign')?.classList.remove('hidden');$('#typeCursor')?.classList.add('hidden');const skip=$('[data-action="finishTyping"]');if(skip)skip.classList.add('hidden')}
 function startTyping(){const paper=$('#paper');paper.classList.remove('hidden');$('#envelopeZone').classList.add('opened-envelope');$('#letterControls').classList.remove('hidden');typingIndex=0;$('#typedLetter').textContent='';const env=$('.envelope');env.disabled=true;env.setAttribute('aria-label','Envelope aberto');if(typingTimer)clearInterval(typingTimer);typingTimer=setInterval(()=>{const chunk=messages.letter.slice(typingIndex,typingIndex+3);typingIndex+=chunk.length;const box=$('#typedLetter');if(!box){clearInterval(typingTimer);return}box.textContent+=chunk;if(typingIndex>=messages.letter.length)finishTyping()},26)}
-$('#screen').addEventListener('click',e=>{let m=e.target.closest('[data-memory]');if(m){let i=Number(m.dataset.memory);memoryOpened.add(i);render();$('#memoryText').textContent=memories[i][2];$('#memoryText').classList.add('memory-reveal');burst(5);return}let b=e.target.closest('[data-action]');if(!b)return;const a=b.dataset.action;if(a==='next'){if(typingTimer){clearInterval(typingTimer);typingTimer=null}setStage(stage+1)}if(a==='secret'){const el=$('#secretText');if(el){el.textContent=stage===0?'EU NÃO GOSTO DE VOCÊ… EU TE AMO MUITOOOO! 😭❤️':'SEGREDO REVELADO: cada dia que passa eu me apaixono mais por você, my nenis! 💜';el.classList.add('secret-revealed');burst(9)}}if(a==='openEnvelope')startTyping();if(a==='finishTyping')finishTyping();if(a==='tease'){teaseCount++;if(!matchMedia('(hover:hover)').matches)dodge(b); const hints=stage===0?['Eita, esse botão é tímido! 🤭','Ele fugiu porque sabe que você me ama! 😌','A resposta secreta tá te esperando! 💕']:stage===1?['Pensando nada, eu vi esse sorrisinho! 😘','Achou mesmo que eu ia facilitar? KKKK 💜','Tem um segredinho ali embaixo! 💌']:['CORREEE, mas meu amor te alcança! 💋','Fugiu de novo? Tarde demais, roubou meu coração! 💘'];$('#tease').textContent=hints[(teaseCount-1)%hints.length];if(teaseCount%3===0)$('#tease').textContent+=' (Tá, pode clicar no SIM quando quiser!)';}if(a==='accept'){setStage(8);burst()}if(a==='decline')$('#declineMessage').classList.remove('hidden');if(a==='finalLetter'){$('#finalLetter').classList.remove('hidden');b.classList.add('hidden');burst()}if(a==='restart'){dodgeCount=0;memoryOpened.clear();meterValue=100;teaseCount=0;meterCelebrated=false;setStage(0)}});
-const music=$('#song'),musicBtn=$('#musicButton');musicBtn.addEventListener('click',async()=>{if(music.paused){try{await music.play();musicBtn.textContent='🔇 Pausar música'}catch{musicBtn.textContent='🎵 Áudio indisponível'}}else{music.pause();musicBtn.textContent='🎵 Tocar música'}});
+$('#screen').addEventListener('click',e=>{let m=e.target.closest('[data-memory]');if(m){let i=Number(m.dataset.memory);memoryOpened.add(i);render();$('#memoryText').textContent=memories[i][2];$('#memoryText').classList.add('memory-reveal');burst(5);return}let b=e.target.closest('[data-action]');if(!b)return;const a=b.dataset.action;if(a==='next'){if(typingTimer){clearInterval(typingTimer);typingTimer=null}if(stage===6){beginProposal();}else{setStage(stage+1)}}if(a==='skipReveal'){finishProposalReveal()}if(a==='secret'){const el=$('#secretText');if(el){el.textContent=stage===0?'EU NÃO GOSTO DE VOCÊ… EU TE AMO MUITOOOO! 😭❤️':'SEGREDO REVELADO: cada dia que passa eu me apaixono mais por você, my nenis! 💜';el.classList.add('secret-revealed');burst(9)}}if(a==='openEnvelope')startTyping();if(a==='finishTyping')finishTyping();if(a==='tease'){teaseCount++;if(!matchMedia('(hover:hover)').matches)dodge(b); const hints=stage===0?['Eita, esse botão é tímido! 🤭','Ele fugiu porque sabe que você me ama! 😌','A resposta secreta tá te esperando! 💕']:stage===1?['Pensando nada, eu vi esse sorrisinho! 😘','Achou mesmo que eu ia facilitar? KKKK 💜','Tem um segredinho ali embaixo! 💌']:['CORREEE, mas meu amor te alcança! 💋','Fugiu de novo? Tarde demais, roubou meu coração! 💘'];$('#tease').textContent=hints[(teaseCount-1)%hints.length];if(teaseCount%3===0)$('#tease').textContent+=' (Tá, pode clicar no SIM quando quiser!)';}if(a==='accept'){setStage(8);burst()}if(a==='decline')$('#declineMessage').classList.remove('hidden');if(a==='finalLetter'){$('#finalLetter').classList.remove('hidden');b.classList.add('hidden');burst()}if(a==='restart'){proposalRevealing=false;dodgeCount=0;memoryOpened.clear();meterValue=100;teaseCount=0;meterCelebrated=false;setStage(0)}});
+// TRILHA SONORA: usa os nomes já enviados ao GitHub: audio/bruno.mp3.mp3 e audio/demi.mp3.mp3.
+const bruno=$('#brunoSong'),demi=$('#demiSong'),musicBtn=$('#musicButton');
+let musicEnabled=false,fadeTimer=null,proposalTimer=null,proposalRevealing=false;
+const defaultVolume=.56;
+function stopFade(){if(fadeTimer!==null){clearInterval(fadeTimer);fadeTimer=null}}
+function volumeForStage(n){return n===4?.28:n===6?.34:defaultVolume}
+function updateMusicLabel(){musicBtn.textContent=musicEnabled?'🔇 Pausar música':'🎵 Tocar nossa música'}
+function fadeTo(audio,target,duration=900){
+  stopFade();const from=audio.volume,started=performance.now();
+  fadeTimer=setInterval(()=>{const progress=Math.min(1,(performance.now()-started)/duration);audio.volume=Math.max(0,Math.min(1,from+(target-from)*progress));if(progress>=1)stopFade()},40);
+}
+// Troca musical sincronizada com o momento do pedido, não com minutos fixos.
+function updateSoundtrack(oldStage,newStage){
+  if(!musicEnabled)return;
+  if(newStage===7 && oldStage!==7 && demi.paused){
+    stopFade();const duration=5000,start=performance.now(),brunoFrom=bruno.volume;
+    demi.volume=0;
+    demi.play().then(()=>{
+      fadeTimer=setInterval(()=>{
+        const t=Math.min(1,(performance.now()-start)/duration);
+        bruno.volume=Math.max(0,brunoFrom*(1-t));demi.volume=defaultVolume*t;
+        if(t>=1){stopFade();bruno.pause();}
+      },40);
+    }).catch(()=>{demi.pause();demi.volume=0;fadeTo(bruno,defaultVolume);musicBtn.textContent='🎵 Verificar áudio da Demi';});
+    return;
+  }
+  if(newStage<7 && demi.paused){fadeTo(bruno,volumeForStage(newStage))}
+  if(newStage===8 && !demi.paused){demi.volume=defaultVolume}
+  if(newStage===0 && !demi.paused){demi.pause();demi.currentTime=0;bruno.currentTime=0;bruno.volume=defaultVolume;bruno.play().catch(()=>{});}
+}
+
+// Revelação: a introdução da Demi acompanha o suspense antes da pergunta.
+// A voz entra aproximadamente entre 11 e 13 segundos da gravação enviada.
+// O usuário pode antecipar a revelação; nenhuma ação depende do cronômetro.
+function finishProposalReveal(){
+  if(!proposalRevealing)return;
+  proposalRevealing=false;
+  if(proposalTimer){clearTimeout(proposalTimer);proposalTimer=null;}
+  setStage(7);
+}
+function beginProposal(){
+  if(proposalRevealing)return;
+  proposalRevealing=true;
+  const view=$('#screen');
+  view.innerHTML=`<section class="step suspense"><div class="sticker">💫💜</div><h2>É agora, meu amor…</h2><p class="sub">Aquela ligação no Discord foi só o começo da nossa história.</p><div class="suspense-line">E agora… o momento mais esperado… 💍</div><p>Tem uma pergunta que meu coração queria te fazer.</p>${btn('Revelar o pedido 💍','skipReveal','secondary')}</section>`;
+  // Inicia a música neste clique real, para respeitar os bloqueios de reprodução.
+  if(musicEnabled){
+    stopFade();
+    demi.pause();demi.currentTime=0;demi.volume=0;
+    const beginning=performance.now(),brunoFrom=bruno.paused?0:bruno.volume;
+    demi.play().then(()=>{
+      fadeTimer=setInterval(()=>{
+        const t=Math.min(1,(performance.now()-beginning)/5000);
+        if(!bruno.paused)bruno.volume=Math.max(0,brunoFrom*(1-t));
+        demi.volume=Math.min(1,defaultVolume*t);
+        if(t>=1){stopFade();bruno.pause();demi.volume=defaultVolume;}
+      },40);
+    }).catch(()=>{
+      // Se o navegador não permitir a segunda faixa, preserve a primeira.
+      demi.pause();demi.volume=0;
+      if(!bruno.paused)bruno.volume=defaultVolume;
+      musicBtn.textContent='🎵 Toque para ativar o som';
+      musicEnabled=false;
+    });
+  }
+  proposalTimer=setTimeout(finishProposalReveal,12000);
+}
+
+musicBtn.addEventListener('click',async()=>{
+  if(musicEnabled){musicEnabled=false;stopFade();bruno.pause();demi.pause();updateMusicLabel();return;}
+  const target=stage>=7?demi:bruno;const other=stage>=7?bruno:demi;
+  other.pause();target.volume=stage>=7?defaultVolume:volumeForStage(stage);
+  try{await target.play();musicEnabled=true;updateMusicLabel()}
+  catch{musicEnabled=false;musicBtn.textContent='⚠️ Verificar arquivos de música'}
+});
+updateMusicLabel();
 for(let i=0;i<22;i++){const d=document.createElement('div');d.className='float';d.textContent=['💜','💕','💗','✨','🩷'][i%5];d.style.left=(i*47%100)+'%';d.style.animationDelay=(-i*.8)+'s';d.style.animationDuration=(11+i%7)+'s';document.body.appendChild(d)}
 render();
 </script>
