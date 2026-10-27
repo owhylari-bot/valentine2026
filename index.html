@@ -1,138 +1,49 @@
 <!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <!-- CUSTOMIZE: Browser tab title -->
-    <title>Will You Be My Valentine? 💝</title>
-    <!-- Google Fonts -->
-    <link
-      href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Poppins:wght@300;400;600&display=swap"
-      rel="stylesheet"
-    />
-    <!-- Styles -->
-    <link rel="stylesheet" href="styles.css" />
-  </head>
-  <body>
-    <!-- Floating Background Elements -->
-    <div class="floating-elements" aria-hidden="true">
-      <!-- Hearts and bears will be added here by JavaScript -->
-    </div>
-
-    <!-- Main Content Container -->
-    <main class="container">
-      <h1 id="valentineTitle"></h1>
-
-      <!-- Music Player -->
-      <div id="musicControls" class="music-controls">
-        <button
-          id="musicToggle"
-          class="music-btn"
-          aria-label="Toggle Background Music"
-        >
-          🎵 Play Music
-        </button>
-        <audio id="bgMusic" loop>
-          <source id="musicSource" type="audio/mpeg" />
-          Your browser does not support the audio element.
-        </audio>
-      </div>
-
-      <!-- First Question -->
-      <section class="question-section" id="question1">
-        <h2 id="question1Text"></h2>
-        <div class="button-group">
-          <button
-            class="cute-btn"
-            onclick="moveButton(this)"
-            id="yesBtn1"
-          ></button>
-          <button
-            class="cute-btn"
-            onclick="moveButton(this)"
-            id="noBtn1"
-          ></button>
-        </div>
-        <!-- CUSTOMIZE: Secret answer text -->
-        <div class="secret-answer">
-          <button
-            class="cute-btn special"
-            onclick="showNextQuestion(2)"
-            id="secretAnswerBtn"
-          ></button>
-        </div>
-      </section>
-
-      <!-- Second Question (Love Meter) -->
-      <section class="question-section hidden" id="question2">
-        <h2 id="question2Text"></h2>
-        <!-- Love meter settings: min="0" max="10000" -->
-        <div class="love-meter">
-          <label for="loveMeter" class="sr-only">Love Meter</label>
-          <input
-            type="range"
-            min="0"
-            max="10000"
-            value="100"
-            class="slider"
-            id="loveMeter"
-          />
-          <p>
-            <span class="love-value-container"
-              ><span id="startText"></span> (<span id="loveValue">100</span
-              >%)</span
-            >
-            <span id="extraLove" class="hidden"></span>
-          </p>
-        </div>
-        <button
-          class="cute-btn"
-          onclick="showNextQuestion(3)"
-          id="nextBtn"
-        ></button>
-      </section>
-
-      <!-- Final Question -->
-      <section class="question-section hidden" id="question3">
-        <h2 id="question3Text"></h2>
-        <div class="button-group">
-          <button
-            class="cute-btn final-yes"
-            onclick="celebrate()"
-            id="yesBtn3"
-          ></button>
-          <button
-            class="cute-btn"
-            onclick="moveButton(this)"
-            id="noBtn3"
-          ></button>
-        </div>
-      </section>
-
-      <!-- CUSTOMIZE: Celebration message -->
-      <section class="celebration hidden" id="celebration">
-        <h2 id="celebrationTitle"></h2>
-        <p class="celebration-text" id="celebrationMessage"></p>
-        <p class="celebration-text" id="celebrationEmojis"></p>
-      </section>
-
-      <!-- Share Button -->
-      <div class="share-container">
-        <button
-          id="shareBtn"
-          class="share-btn"
-          aria-label="Copy shareable link"
-        >
-          🔗 Share This Page
-        </button>
-      </div>
-    </main>
-
-    <!-- Scripts -->
-    <script src="config.js"></script>
-    <script src="config-system.js"></script>
-    <script src="state.js"></script>
-    <script src="theme.js"></script>
-    <script src="script.js"></script>
-  </body>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#a46bba"><title>Para Lari, com amor 💜</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Great+Vibes&display=swap" rel="stylesheet">
+<style>
+:root{--purple:#82529e;--pink:#d96698;--ink:#53395c;--muted:#806d86;--lavender:#e8d7f5;--white:#fffafc}*{box-sizing:border-box}body{margin:0;min-height:100dvh;font-family:'DM Sans',sans-serif;color:var(--ink);background:linear-gradient(125deg,#f6cee4,#e7dbfa 53%,#fcdde9);background-size:220% 220%;animation:bg 16s ease infinite;display:flex;align-items:center;justify-content:center;padding:30px 16px;overflow-x:hidden}@keyframes bg{50%{background-position:100% 100%}}.float{position:fixed;pointer-events:none;z-index:0;opacity:.55;font-size:24px;animation:float 13s linear infinite}@keyframes float{0%{transform:translateY(105vh) rotate(0)}100%{transform:translateY(-130vh) rotate(35deg)}}main{position:relative;z-index:1;width:min(100%,700px);background:rgba(255,253,255,.93);border:1px solid #ffffffcb;border-radius:30px;box-shadow:0 16px 60px #885b9930;padding:clamp(24px,5vw,46px);text-align:center;backdrop-filter:blur(10px)}h1{font:normal clamp(38px,7vw,58px)/1.2 'Great Vibes',cursive;color:var(--purple);margin:4px 0 8px}.eyebrow{text-transform:uppercase;letter-spacing:2px;font-size:11px;font-weight:700;color:#ad79a7}.progress{height:7px;border-radius:99px;background:#f3e7f7;margin:20px 0 32px;overflow:hidden}.progress>div{height:100%;background:linear-gradient(90deg,#e88cae,#9767bc);border-radius:99px;transition:width .4s}.step{animation:enter .45s ease}@keyframes enter{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}h2{font-size:clamp(22px,4.5vw,29px);line-height:1.35;margin:0 0 16px;color:#6b407d}p{line-height:1.75}.sub{color:var(--muted);font-size:14px;margin:0 0 24px}.buttons{display:flex;gap:12px;justify-content:center;align-items:center;flex-wrap:wrap;margin:24px 0 8px;min-height:70px}button{font:700 15px 'DM Sans',sans-serif;cursor:pointer;border:0;border-radius:999px;padding:14px 24px;min-height:48px;transition:background .2s,transform .2s,box-shadow .2s}button:focus-visible{outline:3px solid #8c67c9;outline-offset:3px}.primary{background:linear-gradient(100deg,#db6c9c,#9b68bf);color:white;box-shadow:0 7px 20px #b06eac49}.primary:hover{transform:translateY(-2px);box-shadow:0 10px 23px #b06eac50}.secondary{background:#f0e3f7;color:#6d4482}.secondary:hover{background:#e7d3f3}.ghost{background:transparent;color:var(--purple);text-decoration:underline}.secret{display:block;margin:20px auto 4px;background:#fbf2fa;border:1px dashed #c996cd;color:#9f7aa9;font-size:13px;padding:12px 18px;opacity:.48}.secret:hover,.secret:focus{opacity:1}.hint{font-size:12px;color:#a18ba6}.card{background:#fff6fb;border:1px solid #efd9ed;border-radius:20px;padding:20px;margin:20px 0;text-align:left}.letter{white-space:pre-line;text-align:left;max-height:min(45vh,340px);overflow:auto;padding:22px;border-radius:20px;background:#fff8fd;border:1px solid #ead7f0;box-shadow:inset 0 2px 15px #e6cfea40;font-size:15px}.memory-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:20px 0}.memory{background:linear-gradient(160deg,#f9e6f2,#ebe0fb);border:1px solid #e5ceec;border-radius:18px;min-height:98px;padding:12px 6px;color:#694779;font-size:14px}.memory .emoji{display:block;font-size:26px;margin-bottom:5px}.memory.opened{background:#f8eefc}.memory-text{margin:18px 0;white-space:pre-line;color:#664a71}.meter{width:100%;accent-color:#b56abb;margin:20px 0 10px;cursor:pointer;height:23px}.value{font-size:36px;font-weight:700;color:var(--pink);margin:12px 0}.response{min-height:38px;font-weight:700;color:#9d5b9e}.music{position:fixed;top:13px;right:13px;z-index:5;background:#fffbffeb;color:#82529e;border:1px solid #dcbfdf;padding:10px 15px;font-size:12px;min-height:40px}.sticker{font-size:53px;margin:4px 0 20px}.no-response{background:#fff0f6;border-radius:16px;padding:15px;margin-top:14px}.signature{font:normal 30px 'Great Vibes',cursive;color:var(--purple);text-align:right;margin:6px 2px}.small{font-size:12px;color:#9b829f}.hidden{display:none!important}.confetti{position:fixed;z-index:15;pointer-events:none;animation:pop 4s linear forwards}@keyframes pop{0%{opacity:1;transform:translateY(-20px) rotate(0)}100%{opacity:0;transform:translateY(110vh) rotate(360deg)}}@media(max-width:480px){main{padding:23px 19px;border-radius:24px}.memory-grid{grid-template-columns:1fr}.memory{min-height:55px}.buttons{flex-direction:column}.buttons button{width:100%}.letter{max-height:42vh}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<button class="music" id="musicButton" type="button">🎵 Tocar música</button>
+<audio id="song" loop preload="none" src="https://res.cloudinary.com/dncywqfpb/video/upload/v1738399057/music_qrhjvy.mp3"></audio>
+<main><div class="eyebrow" id="chapter">Uma surpresa só sua</div><h1>Para minha Lari ♡</h1><div class="progress"><div id="bar" style="width:0%"></div></div><div id="screen" aria-live="polite"></div><p class="small">Feito com todo o amor do mundo 💜</p></main>
+<script>
+// 💌 PERSONALIZAÇÃO: altere os textos abaixo quando quiser.
+const messages={
+firstQuestion:'Meu amor, você gosta de mim? 🥹❤️',
+secondQuestion:'Tá, mas gosta de mim MESMO ou só tá me iludindo? 🤨💕',
+proposal:'Larissa Marcela, você aceita ser minha namorada e continuar escrevendo nossa história comigo? 💍❤️',
+letter:`Meu amor,\n\nSe alguém me dissesse que uma ligação no Discord mudaria tanta coisa na minha vida, eu nem imaginaria. No começo, eram conversas sem nenhuma pretensão, depois vieram as jogatinas, as risadas e essa vontade cada vez maior de estar pertinho de você.\n\nHoje, esperar você chegar em casa é uma das partes mais gostosas do meu dia. Sua voz me acalma, suas risadas me fazem sorrir sem perceber e nossas calls de soninho são pequenos momentos que eu guardo com muito carinho.\n\nVocê esteve comigo até nos dias em que pensei em desistir de tantas coisas, e me fez querer voltar, tentar mais uma vez e acreditar que dias bonitos ainda viriam.\n\nEu amo a mulher que você é: seu carinho, sua inteligência, seus sonhos e até suas manias. Quero continuar conhecendo cada pedacinho seu, respeitando seus momentos e construindo uma relação bonita, leve e cheia de parceria.\n\nNão sei explicar o tamanho do meu amor, mas sei que quero demonstrá-lo nas pequenas coisas, todos os dias. Eu te amo, minha princesa. ❤️`,
+final:`Meu amor, hoje eu quero guardar essa data no coração: 26/10/2026. 💍❤️\n\nA garota que entrou na minha vida por uma call se tornou meu pensamento favorito, meu sorriso inesperado e alguém com quem eu sonho viver um montão de coisas bonitas.\n\nEu quero ser seu abraço nos dias difíceis, a pessoa que comemora suas vitórias e a companhia para os momentos mais bobos. Quero continuar descobrindo o mundo com você, uma risada, uma conversa e um carinho por vez.\n\nNão prometo uma história perfeita. Prometo sinceridade, cuidado, diálogo e vontade de escolher nós duas todos os dias.\n\nObrigada por existir e por me deixar fazer parte da sua vida. Eu te amo mais do que qualquer medidor conseguiria mostrar. Em todas as vidas em que eu pudesse escolher, eu procuraria você. ❤️`
+};
+const memories=[['🎮','Nossas jogatinas','Tudo começou com conversas e partidas de Valorant. Sem perceber, fomos criando algo só nosso.'],['🎧','Nossas calls','As ligações, as risadas e nossas calls de soninho viraram alguns dos meus lugares favoritos.'],['🏡','O melhor horário','Aquele friozinho bom de esperar você chegar em casa, porque sei que mais um pedacinho do dia será com você.']];
+const $=s=>document.querySelector(s);let stage=0,memoryOpened=new Set(),meterValue=100,teaseCount=0;
+const stages=['Primeira perguntinha','Preciso confirmar uma coisa','Medidor oficial de amor','Três pedacinhos da nossa história','Uma carta do meu coração','Última brincadeira','O grande momento','Nosso capítulo'];
+function btn(label,action,cls='primary'){return `<button type="button" class="${cls}" data-action="${action}">${label}</button>`}
+function setStage(n){stage=n;$('#chapter').textContent=stages[n];$('#bar').style.width=(n/7*100)+'%';render();window.scrollTo({top:0,behavior:'smooth'})}
+function render(){const el=$('#screen');let html='';switch(stage){
+case 0:html=`<section class="step"><div class="sticker">🧸💗</div><h2>${messages.firstQuestion}</h2><p class="sub">Responde com sinceridade, hein! 🤨</p><div class="buttons">${btn('Simmm! ❤️','next')}${btn('Nem, saí fora 🙄','tease','secondary')}</div>${btn('🤫 Tenho uma resposta secreta...','next','secret')}<p class="hint">Psst... tem um botão escondidinho aqui 👀</p><p class="response" id="tease"></p></section>`;break;
+case 1:html=`<section class="step"><div class="sticker">🤨💕</div><h2>${messages.secondQuestion}</h2><p class="sub">Pensa direitinho antes de responder KKKKK.</p><div class="buttons">${btn('EU TE AMO, BOBA! ❤️','next')}${btn('Tô pensando... 👀','tease','secondary')}</div>${btn('💌 Segredinho: você roubou meu coração','next','secret')}<p class="response" id="tease"></p></section>`;break;
+case 2:html=`<section class="step"><div class="sticker">💘</div><h2>Tá bom, então prova! Quanto você me ama?</h2><p class="sub">Arrasta o medidor. Quero provas matemáticas desse amor! 🤭</p><input class="meter" aria-label="Medidor de amor" id="meter" type="range" min="0" max="10000" value="${meterValue}" step="10"><div class="value" id="meterNumber">${meterValue.toLocaleString('pt-BR')}%</div><p class="response" id="meterMessage">${meterText(meterValue)}</p>${btn('Já provei meu amor! 💖','next')}</section>`;break;
+case 3:html=`<section class="step"><div class="sticker">🎁</div><h2>Antes de continuar, abre nossas memórias!</h2><p class="sub">Clique nos três corações para descobrir o que eu guardo com carinho. 💗</p><div class="memory-grid">${memories.map((m,i)=>`<button class="memory ${memoryOpened.has(i)?'opened':''}" data-memory="${i}"><span class="emoji">${memoryOpened.has(i)?'💝':m[0]}</span>${m[1]}</button>`).join('')}</div><div class="card memory-text" id="memoryText">${memoryOpened.size===3?'Você abriu todas as memórias. Mas ainda temos tantas pela frente! 💜':'Cada lembrança tem um cantinho especial no meu coração.'}</div>${memoryOpened.size===3?btn('Quero ler a carta 💌','next'): '<p class="hint">Abra os três corações para continuar.</p>'}</section>`;break;
+case 4:html=`<section class="step"><div class="sticker">💌</div><h2>Uma cartinha para você, meu amor</h2><p class="sub">Escrevi pensando em tudo o que a gente viveu até aqui.</p><div class="letter">${escapeHtml(messages.letter)}</div><div class="signature">Com amor, sua Duda ♡</div><div class="buttons">${btn('Terminei de ler, amor ❤️','next')}</div></section>`;break;
+case 5:html=`<section class="step"><div class="sticker">💋</div><h2>Depois de tudo isso, você acha que vai se livrar dos meus beijinhos? 🤨</h2><div class="buttons">${btn('NUNCAAA! ❤️','next')}${btn('Socorro, vou fugir! 🏃‍♀️','tease','secondary')}</div><p class="response" id="tease"></p><p class="hint">Tem gente tentando fugir de um montão de amor por aqui!</p></section>`;break;
+case 6:html=`<section class="step"><div class="sticker">🌹💍</div><h2>${messages.proposal}</h2><p class="sub">A resposta é sua, sem botão fugindo agora. Eu só quero que venha do seu coração. ❤️</p><div class="buttons">${btn('CLAROOO, MEU AMOR! ❤️','accept')}${btn('Quero conversar 💜','decline','secondary')}</div><div class="no-response hidden" id="declineMessage">Tudo bem, meu amor. Obrigada por ser sincera comigo. O mais importante é a gente conversar com carinho, sem pressa e sem pressão. 💜</div></section>`;break;
+case 7:html=`<section class="step"><div class="sticker">💍🎉💗</div><h2>26/10/2026 — Nosso capítulo especial!</h2><p>EU TE AMOOOO! 😭❤️</p><p class="sub">Ainda tenho mais uma coisinha guardada pra você...</p>${btn('Abrir meu último presente 💝','finalLetter')}<div class="hidden" id="finalLetter"><div class="letter" style="margin-top:20px">${escapeHtml(messages.final)}</div><div class="signature">Sua namorada, Duda ♡</div>${btn('Recomeçar nossa surpresinha 💗','restart','secondary')}</div></section>`;break;
+}el.innerHTML=html;if(stage===2){$('#meter').addEventListener('input',e=>{meterValue=Number(e.target.value);$('#meterNumber').textContent=meterValue.toLocaleString('pt-BR')+'%';$('#meterMessage').textContent=meterText(meterValue)})}}
+function meterText(v){return v>=9000?'MEU DEOS! ESSE AMOR NÃO CABE NO UNIVERSO! 😭💗🚀':v>=5000?'MEO DEOSSS, DO TAMANHO DO MUNDÃO! 🥹💞':v>=1000?'DO INFINITO E ALÉM! 🚀💖':v>100?'Ai que gostosinho saber disso! 🥰':'Só isso, amor? 🤨💕'}
+function escapeHtml(s){return s.replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;').replaceAll('"','&quot;')}
+function burst(){for(let i=0;i<45;i++){let d=document.createElement('div');d.className='confetti';d.textContent=['💜','💕','💗','✨','💍'][i%5];d.style.left=(Math.random()*100)+'vw';d.style.top='-30px';d.style.fontSize=(18+Math.random()*20)+'px';d.style.animationDelay=(Math.random()*1.3)+'s';document.body.appendChild(d);setTimeout(()=>d.remove(),5700)}}
+$('#screen').addEventListener('click',e=>{let m=e.target.closest('[data-memory]');if(m){let i=Number(m.dataset.memory);memoryOpened.add(i);render();$('#memoryText').textContent=memories[i][2];return}let b=e.target.closest('[data-action]');if(!b)return;const a=b.dataset.action;if(a==='next')setStage(stage+1);if(a==='tease'){teaseCount++;const hints=stage===0?['Eita, esse botão é tímido! 🤭','Ele fugiu porque sabe que você me ama! 😌','A resposta secreta tá te esperando! 💕']:stage===1?['Pensando nada, eu vi esse sorrisinho! 😘','Achou mesmo que eu ia facilitar? KKKK 💜','Tem um segredinho ali embaixo! 💌']:['CORREEE, mas meu amor te alcança! 💋','Fugiu de novo? Tarde demais, roubou meu coração! 💘'];$('#tease').textContent=hints[(teaseCount-1)%hints.length];if(teaseCount%3===0)$('#tease').textContent+=' (Tá, pode clicar no SIM quando quiser!)';if(window.matchMedia('(hover:hover)').matches){b.style.transform=`translate(${Math.round(Math.random()*70-35)}px, ${Math.round(Math.random()*28-14)}px)`}}if(a==='accept'){setStage(7);burst()}if(a==='decline')$('#declineMessage').classList.remove('hidden');if(a==='finalLetter'){$('#finalLetter').classList.remove('hidden');b.classList.add('hidden');burst()}if(a==='restart'){memoryOpened.clear();meterValue=100;teaseCount=0;setStage(0)}});
+const music=$('#song'),musicBtn=$('#musicButton');musicBtn.addEventListener('click',async()=>{if(music.paused){try{await music.play();musicBtn.textContent='🔇 Pausar música'}catch{musicBtn.textContent='🎵 Áudio indisponível'}}else{music.pause();musicBtn.textContent='🎵 Tocar música'}});
+for(let i=0;i<22;i++){const d=document.createElement('div');d.className='float';d.textContent=['💜','💕','💗','✨','🩷'][i%5];d.style.left=(i*47%100)+'%';d.style.animationDelay=(-i*.8)+'s';d.style.animationDuration=(11+i%7)+'s';document.body.appendChild(d)}
+render();
+</script>
+</body>
 </html>
